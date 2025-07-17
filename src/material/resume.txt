@@ -1,0 +1,76 @@
+Ahmed Yassine Hachem
+Sousse, Tunisia | ahmedhachem0420@gmail.com | [+216] 96-440-496 | linkedin.com/in/ahmed-yh
+Experience
+AI Data Labeling Intern June 2024 – July 2024
+PURA solutions Sousse, Tunisia
+• Led the end-to-end execution of a AI training program by accurately labeling 20,000+ product images (containing metadata such
+as product names, production dates, lot codes, and health stamps) to optimize an AI-powered retail scanning system.
+• Designed and executed a scalable data labeling pipeline by recruiting and leading a cross-functional team of three individuals,
+project completion time was reduced by 67% (from an industry-standard 3 months to 4 weeks)
+• Labeled 100 photos in <20 minutes (compared to the 2-hour industry average), reaching 98% accuracy and adding 10,000+
+individually examined labels to the dataset.
+• Worked directly with the CTO to test and validate 20,000 labeled images, resolving anomalies and Boosted model accuracy by
+20% post-QA.
+UI/UX Designer Intern April 2024 – June 2024
+PURA solutions Sousse, Tunisia
+• Improved user engagement by redesigning the app's UI/UX with Figma by including a modernized logo, homepage,
+and interface.
+• Optimized navigation and visual hierarchy by implementing intuitive buttons, better color schemes, and revised
+typography.
+Media Manager Dec 2024 – Present
+Pristini Sports Club (University Club) Sousse, Tunisia
+• Oversee and curate content for the club’s Instagram account to enhance engagement and promote it.
+• Film podcast sessions using both my smartphone and the university-provided camera.
+• Edit content using Premiere Pro, Photoshop and CapCut, ensuring professional quality content.
+Projects
+FertiFy | TypeScript, React, Next.js, Flask, Python, RAG.
+• Developed FertiFy, a full-stack web application designed to assist users with plant care using interactive features and
+AI-driven insights.
+• Utilized React and Next.js to build a dynamic, responsive user interface, enabling seamless navigation through tools
+like the Fertilizer Predictor and Plant Diagnosis.
+• Developed and implemented two AI models—Fertilizer Predictor and Plant Diagnosis—using Retrieval-Augmented
+Generation (RAG) to fetch relevant data from datasets for accurate recommendations and diagnoses.
+• Implemented a Flask backend to handle data processing and facilitate smooth communication between the front-end
+and back-end, ensuring optimal performance.
+NexusBI | TypeScript, React, Next.js, Flask, Python, RAG, Multi-Agents System.
+• Developed NexusBI, a full-stack business intelligence platform designed to transform raw data into actionable
+insights through AI-powered analysis and interactive visualizations.
+• Implemented a responsive UI using React, TypeScript, and Tailwind CSS, creating an intuitive dashboard experience
+with interactive data exploration features and real-time visualization rendering.
+• Engineered a Flask backend that processes complex datasets, handles data preprocessing, and integrates with Google
+Generative AI to produce comprehensive business intelligence reports.
+• Created an advanced data pipeline that automatically processes various file formats (CSV, Excel, JSON), identifies
+statistical relationships between features, and generates natural language reports with recommendations based on
+detected patterns.
+• Designed a multi-agent system architecture utilizing specialized AI agents for data import, dataset management, and
+analysis tasks, enabling complex workflows from raw data ingestion to generating detailed business intelligence
+reports with minimal user intervention.
+Achievements
+HACKATHONS
+Participated in 10+ hackathons over the past two years, with several notable achievements including the following:
+- Hackathon 2.0 By AISEC November 2023
+• Second Place Hackathon Winner: Collaborated in a four-member team to develop an innovative IoT-driven app for water
+conservation, aligning with the UN Sustainable Development Goal for Clean Water and Sanitation. The solution integrated
+smart sensors and real-time data visualization to empower users with insights on household water consumption, driving
+sustainable water management practices.
+- Coding moon challenge by Microsoft Club February 2025
+• Second Place Hackathon Winner: Collaborated in a team of 2 to develop a full-stack web application that visualizes
+data insights, integrating front-end technologies for user interaction and back-end services for data processing and analysis.
+Leveraged Google’s Gemini AI with Retrieval-Augmented Generation (RAG) to enhance data analysis capabilities, enabling
+the application to generate structured insights and comprehensive reports based on complex datasets.
+- MutualHack by MAE insurance May 2025
+• Chosen as one of 103 participants from over 1,400 applicants, following a competitive preselection process based on my résumé
+and LinkedIn profile. Worked collaboratively in a small team to address real-time challenges in a fast-paced, high-pressure,
+competitive setting.
+Education
+Pristini School of AI Sousse, Tunisia
+applied artificial intelligence Sep 2023 – May 2026
+Relevant courses: Deep learning | Machine Learning | Advanced Python programming | C | Java | Data
+Engineering | Data Administration | Computer Vision
+Skills
+Software & Tools: Figma, Adobe After Effects, Microsoft Excel, Adobe Premiere Pro, Adobe Photoshop, CapCut,
+VS code, Eclipse IDE
+Programming Languages: Python, C, SQL, Java, HTML/CSS, Javascript
+Technologies: Pandas, NumPy, Plotly, Seaborn, Matplotlib, scikit-learn, TensorFlow, Keras, Flask, RAG, Agent
+System, Multi-Agent System.
+Languages: English (C1), French (B2), Arabic (native)

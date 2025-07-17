@@ -1,0 +1,343 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Audiowide:wght@400&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  🎯 CYBERPUNK THEME VARIABLES 🎯
+  Customize these CSS variables to match your vision
+*/
+:root {
+  --neon-cyan: #00ffff;
+  --neon-purple: #9d00ff;
+  --neon-pink: #ff00ff;
+  --neon-green: #00ff88;
+  --neon-blue: #0066ff;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Audiowide', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Font Classes */
+.font-orbitron {
+  font-family: 'Orbitron', monospace;
+}
+
+.font-audiowide {
+  font-family: 'Audiowide', sans-serif;
+}
+
+/* 
+  🎯 CYBERPUNK UI COMPONENTS 🎯
+  Reusable components with consistent styling
+*/
+
+/* Neon Glow Effect */
+.neon-glow {
+  text-shadow: 
+    0 0 5px var(--neon-cyan),
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 40px var(--neon-cyan);
+}
+
+/* Glassmorphism Panel */
+.glassmorphism-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 
+    0 8px 32px rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glassmorphism-panel:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 8px 32px rgba(31, 38, 135, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Holographic Panel */
+.holographic-panel {
+  background: linear-gradient(45deg, 
+    rgba(0, 255, 255, 0.1) 0%, 
+    rgba(157, 0, 255, 0.1) 50%, 
+    rgba(255, 0, 255, 0.1) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.holographic-panel:hover {
+  box-shadow: 
+    0 0 30px rgba(0, 255, 255, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Floating Card Effect */
+.floating-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.floating-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(0, 255, 255, 0.2);
+}
+
+/* Cyberpunk Buttons */
+.cyberpunk-btn {
+  @apply relative inline-flex items-center justify-center px-6 py-3 font-audiowide font-bold text-sm rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  overflow: hidden;
+}
+
+.cyberpunk-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+
+.cyberpunk-btn-primary {
+  @apply bg-gradient-to-r from-cyan-400 to-purple-500 text-black;
+}
+
+.cyberpunk-btn-primary:hover {
+  @apply from-cyan-300 to-purple-400;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.5),
+    0 0 40px rgba(157, 0, 255, 0.3);
+}
+
+.cyberpunk-btn-secondary {
+  @apply bg-black/50 text-cyan-400 border-cyan-500;
+}
+
+.cyberpunk-btn-secondary:hover {
+  @apply bg-cyan-400/10 text-cyan-300;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.3),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+/* Cyberpunk Input Fields */
+.cyberpunk-input {
+  @apply w-full px-4 py-3 bg-black/50 border-2 border-cyan-500/30 rounded-lg text-cyan-300 font-audiowide placeholder-cyan-500/50 focus:outline-none focus:border-cyan-400 focus:bg-black/70 transition-all duration-300;
+}
+
+.cyberpunk-input:focus {
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.2),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+/* Social Links */
+.social-link {
+  @apply flex items-center space-x-3 p-3 rounded-lg bg-white/5 border border-cyan-500/20 hover:bg-white/10 hover:border-cyan-500/40 transition-all duration-300;
+}
+
+.social-link:hover {
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.2),
+    inset 0 0 20px rgba(0, 255, 255, 0.05);
+}
+
+/* Animated Background Grid */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: grid-move 20s linear infinite;
+}
+
+@keyframes grid-move {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+  .neon-glow {
+    text-shadow: 
+      0 0 3px var(--neon-cyan),
+      0 0 6px var(--neon-cyan),
+      0 0 12px var(--neon-cyan);
+  }
+  
+  .floating-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+
+/* Animation Utilities */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* 
+  🎯 ACCESSIBILITY ENHANCEMENTS 🎯
+  Ensures the cyberpunk theme remains accessible
+*/
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus states for keyboard navigation */
+button:focus,
+input:focus,
+textarea:focus,
+a:focus {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+}
+
+/* Add a neon purple text utility class with adjustable depth */
+.neon-purple {
+  color: #a78bfa; /* Tailwind's purple-400 */
+  text-shadow:
+    0 0 var(--neon-depth, 8px) #a78bfa,
+    0 0 calc(var(--neon-depth, 8px) * 2) #a78bfa,
+    0 0 calc(var(--neon-depth, 8px) * 3) #7c3aed;
+}
+
+/* Add these new animations and utilities */
+@keyframes line-through {
+  0% {
+    width: 0;
+    left: 0;
+  }
+  50% {
+    width: 100%;
+    left: 0;
+  }
+  100% {
+    width: 0;
+    left: 100%;
+  }
+}
+
+.hover-line-animation {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-line-animation::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #22d3ee, #a855f7, #22d3ee);
+  animation: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.hover-line-animation:hover::after,
+.hover-line-animation:active::after,
+.hover-line-animation.active::after {
+  animation: line-through 2s infinite;
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .hover-line-animation:active::after {
+    animation: line-through 2s infinite;
+    opacity: 1;
+  }
+}
+
+/* Keep only the active state utilities */
+.active-state {
+  @apply scale-[1.02] shadow-lg shadow-purple-500/20 bg-black/40;
+}
+
+.active-state-skill {
+  @apply scale-110 shadow-lg shadow-purple-500/20 from-cyan-900/50 to-purple-900/50;
+}
+
+.active-state-fact {
+  @apply translate-x-2;
+}
+
+.active-state-icon {
+  @apply scale-110 bg-cyan-400/30;
+}
