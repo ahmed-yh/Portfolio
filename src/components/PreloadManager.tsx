@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import LoadingSpinner from './LoadingSpinner';
+import b5Video from '../material/videos/b5low.mp4';
+import b4Video from '../material/videos/b4.mp4';
 
 interface PreloadManagerProps {
   children: React.ReactNode;
@@ -10,13 +12,14 @@ const PreloadManager: React.FC<PreloadManagerProps> = ({ children }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const videoSources = [
-      'src/material/videos/b5.mp4',
-      'src/material/videos/b4.mp4'
+    // Preload videos
+    const videoPaths = [
+      b5Video,
+      b4Video
     ];
 
     let loadedVideos = 0;
-    const totalAssets = videoSources.length;
+    const totalAssets = videoPaths.length;
 
     const preloadVideo = (src: string) => {
       return new Promise<void>((resolve) => {
@@ -40,8 +43,10 @@ const PreloadManager: React.FC<PreloadManagerProps> = ({ children }) => {
       });
     };
 
-    // Preload all videos concurrently
-    Promise.all(videoSources.map(preloadVideo))
+    // Preload all videos concurrently with a 1.5s fallback timeout
+    const timeoutPromise = new Promise<void>((resolve) => setTimeout(resolve, 1500));
+
+    Promise.race([Promise.all(videoPaths.map(preloadVideo)), timeoutPromise])
       .then(() => {
         setIsLoading(false);
       })

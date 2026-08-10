@@ -1,76 +1,49 @@
 Ahmed Yassine Hachem
-Sousse, Tunisia | ahmedhachem0420@gmail.com | [+216] 96-440-496 | linkedin.com/in/ahmed-yh
+Sousse, Tunisia | ahmedhachem0420@gmail.com | [+216] 96-440-496 | linkedin.com/in/ahmed-yh | Portfolio
 Experience
-AI Data Labeling Intern June 2024 – July 2024
-PURA solutions Sousse, Tunisia
-• Led the end-to-end execution of a AI training program by accurately labeling 20,000+ product images (containing metadata such
-as product names, production dates, lot codes, and health stamps) to optimize an AI-powered retail scanning system.
-• Designed and executed a scalable data labeling pipeline by recruiting and leading a cross-functional team of three individuals,
-project completion time was reduced by 67% (from an industry-standard 3 months to 4 weeks)
-• Labeled 100 photos in <20 minutes (compared to the 2-hour industry average), reaching 98% accuracy and adding 10,000+
-individually examined labels to the dataset.
-• Worked directly with the CTO to test and validate 20,000 labeled images, resolving anomalies and Boosted model accuracy by
-20% post-QA.
-UI/UX Designer Intern April 2024 – June 2024
-PURA solutions Sousse, Tunisia
-• Improved user engagement by redesigning the app's UI/UX with Figma by including a modernized logo, homepage,
-and interface.
-• Optimized navigation and visual hierarchy by implementing intuitive buttons, better color schemes, and revised
-typography.
-Media Manager Dec 2024 – Present
-Pristini Sports Club (University Club) Sousse, Tunisia
-• Oversee and curate content for the club’s Instagram account to enhance engagement and promote it.
-• Film podcast sessions using both my smartphone and the university-provided camera.
-• Edit content using Premiere Pro, Photoshop and CapCut, ensuring professional quality content.
+AI Data Labeling Intern | Label Studio, Python.                                                                   June 2024 – July 2024
+PURA Solutions
+•	Led an AI training initiative, labeling 20,000+ product images with detailed metadata and designing a scalable pipeline that reduced project time by 67%.
+•	Achieved 98% labeling accuracy across 10,000+ images and collaborated with the CTO on QA for 20,000 labels, improving model accuracy by 20%.
+AI Engineer Intern | 	Python, Flask, RAG, Multi-Agent System 				June 2025 – July 2025
+Brokins FR
+•	Collaborated with a co-worker to build two production ready AI tools from scratch for Brokins, a French insurance company.
+•	Designed and implemented a RAG chatbot capable of searching across data from numerous French insurance companies and answering instantly 
+•	Built a smart insurance comparator that takes user preferences and recommends the most suitable insurer using AI-based matching 
+•	Handled personally the server deployment, connecting through SSH and managing setup with PUTTY and FileZilla, making sure both tools ran smoothly on Brokins infrastructure  
 Projects
-FertiFy | TypeScript, React, Next.js, Flask, Python, RAG.
-• Developed FertiFy, a full-stack web application designed to assist users with plant care using interactive features and
-AI-driven insights.
-• Utilized React and Next.js to build a dynamic, responsive user interface, enabling seamless navigation through tools
-like the Fertilizer Predictor and Plant Diagnosis.
-• Developed and implemented two AI models—Fertilizer Predictor and Plant Diagnosis—using Retrieval-Augmented
-Generation (RAG) to fetch relevant data from datasets for accurate recommendations and diagnoses.
-• Implemented a Flask backend to handle data processing and facilitate smooth communication between the front-end
-and back-end, ensuring optimal performance.
-NexusBI | TypeScript, React, Next.js, Flask, Python, RAG, Multi-Agents System.
-• Developed NexusBI, a full-stack business intelligence platform designed to transform raw data into actionable
-insights through AI-powered analysis and interactive visualizations.
-• Implemented a responsive UI using React, TypeScript, and Tailwind CSS, creating an intuitive dashboard experience
-with interactive data exploration features and real-time visualization rendering.
-• Engineered a Flask backend that processes complex datasets, handles data preprocessing, and integrates with Google
-Generative AI to produce comprehensive business intelligence reports.
-• Created an advanced data pipeline that automatically processes various file formats (CSV, Excel, JSON), identifies
-statistical relationships between features, and generates natural language reports with recommendations based on
-detected patterns.
-• Designed a multi-agent system architecture utilizing specialized AI agents for data import, dataset management, and
-analysis tasks, enabling complex workflows from raw data ingestion to generating detailed business intelligence
-reports with minimal user intervention.
+FertiFy |React, Flask, Python, RAG.
+•	Built FertiFy, a full stack plant care web app using React, Next.js, Flask, Python, and RAG to provide interactive tools and AI driven fertilizer and diagnosis recommendations.
+•	Implemented two RAG powered AI models (Fertilizer Predictor and Plant Diagnosis) and a Flask backend to process data and deliver accurate, real time insights through a responsive UI.
+•	Designed the app so users can log their plants, receive tailored care suggestions, and quickly diagnose issues, turning complex plant data into simple, actionable guidance.
+NexusBI |React, Flask, Python, RAG, Multi-Agents System.
+•	Built NexusBI, a full stack business intelligence platform using React, Next.js, Flask, Python, RAG, and a multi agent system to turn raw data into actionable insights through interactive visualizations.
+•	Engineered a data pipeline and Flask backend that ingest CSV/Excel/JSON files, preprocess complex datasets, and call Google Generative AI to generate comprehensive BI reports in natural language.
+•	Designed specialized AI agents for data import, dataset management, and analysis, enabling automated end to end workflows from raw data ingestion to decision ready recommendations with minimal user intervention.
+Queue Intelligence System | Python, YOLOv8, OpenCV, Streamlit, Agent System, Computer Vision.
+•	Built an end-to-end queue intelligence system using YOLOv8, OpenCV, and Python to track individual customers in real time, compute dwell times, and export analytics-ready CSV/JSON outputs.
+•	Designed polygon-based worker exclusion zones and disappearance logic so staff are detected but excluded from dwell and queue metrics, improving customer-only insights and reducing false positives.
+•	Implemented a confusion-detection module that flags ID switches, occlusions, and re-entries, then calls an LLM (Google Gemini) to review video segments and automatically correct tracking errors with structured, high-confidence recommendations.
+
 Achievements
 HACKATHONS
 Participated in 10+ hackathons over the past two years, with several notable achievements including the following:
-- Hackathon 2.0 By AISEC November 2023
-• Second Place Hackathon Winner: Collaborated in a four-member team to develop an innovative IoT-driven app for water
-conservation, aligning with the UN Sustainable Development Goal for Clean Water and Sanitation. The solution integrated
-smart sensors and real-time data visualization to empower users with insights on household water consumption, driving
-sustainable water management practices.
-- Coding moon challenge by Microsoft Club February 2025
-• Second Place Hackathon Winner: Collaborated in a team of 2 to develop a full-stack web application that visualizes
-data insights, integrating front-end technologies for user interaction and back-end services for data processing and analysis.
-Leveraged Google’s Gemini AI with Retrieval-Augmented Generation (RAG) to enhance data analysis capabilities, enabling
-the application to generate structured insights and comprehensive reports based on complex datasets.
-- MutualHack by MAE insurance May 2025
-• Chosen as one of 103 participants from over 1,400 applicants, following a competitive preselection process based on my résumé
-and LinkedIn profile. Worked collaboratively in a small team to address real-time challenges in a fast-paced, high-pressure,
-competitive setting.
+-	Hackathon 2.0 By AISEC 								November 2023
+•	Second Place Hackathon Winner: Collaborated in a four-member team to develop an innovative IoT-driven app for water conservation, aligning with the UN Sustainable Development Goal for Clean Water and Sanitation. The solution integrated smart sensors and real-time data visualization to empower users with insights on household water consumption, driving sustainable water management practices.				          		
+-	Coding moon challenge by Microsoft Club						February 2025
+•	Second Place Hackathon Winner: Collaborated in a team of 2 to develop a full-stack web application that visualizes data insights, integrating front-end technologies for user interaction and back-end services for data processing and analysis. Leveraged Google’s Gemini AI with Retrieval-Augmented Generation (RAG) to enhance data analysis capabilities, enabling the application to generate structured insights and comprehensive reports based on complex datasets.
+
+-	MutualHack by MAE insurance 						             May 2025
+•	Chosen as one of 103 participants from over 1,400 applicants, following a competitive preselection process based on my résumé and LinkedIn profile. Worked collaboratively in a small team to address real-time challenges in a fast-paced, high-pressure, competitive setting.
+-	ClimAdapt by 	AGEOS						             	October 2025
+•	Second place Hackathon Winner: Developped CO²LD an interactive environmental education game with a Climate Warning that combines AI, gaming, and sustainability to raise awareness about climate change 
 Education
-Pristini School of AI Sousse, Tunisia
-applied artificial intelligence Sep 2023 – May 2026
-Relevant courses: Deep learning | Machine Learning | Advanced Python programming | C | Java | Data
-Engineering | Data Administration | Computer Vision
+Pristini School of AI 									                    Sousse, Tunisia
+Bachelor in Applied Artificial Intelligence 							Sep 2023 – May 2026
+Relevant courses: Deep learning | Machine Learning | Advanced Python programming | C | Java | Data Engineering | Data Administration | Computer Vision | Data Mining | Big Data 
 Skills
-Software & Tools: Figma, Adobe After Effects, Microsoft Excel, Adobe Premiere Pro, Adobe Photoshop, CapCut,
-VS code, Eclipse IDE
-Programming Languages: Python, C, SQL, Java, HTML/CSS, Javascript
-Technologies: Pandas, NumPy, Plotly, Seaborn, Matplotlib, scikit-learn, TensorFlow, Keras, Flask, RAG, Agent
-System, Multi-Agent System.
-Languages: English (C1), French (B2), Arabic (native)
+Software & Tools: Figma, Adobe After Effects, Microsoft Excel, Adobe Premiere Pro, Adobe Photoshop, CapCut, VS code, Eclipse IDE
+Programming Languages: Python, C, SQL, Java
+Technologies: Pandas, NumPy, Plotly, Seaborn, Matplotlib, scikit-learn, TensorFlow, Keras, Flask, RAG, Agent System, Multi-Agent System.
+Languages: English (C1), French (B2), Arabic (native), German (A1), Spanish (A1).
+

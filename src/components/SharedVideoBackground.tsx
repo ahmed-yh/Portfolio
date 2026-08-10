@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import backgroundVideo from '../material/videos/b4.mp4';
 
 const SharedVideoBackground: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -41,7 +42,7 @@ const SharedVideoBackground: React.FC = () => {
         className="absolute w-full h-full object-cover"
         style={{ willChange: 'transform' }}
       >
-        <source src="src/material/videos/b4.mp4" type="video/mp4" />
+        <source src={backgroundVideo} type="video/mp4" />
       </video>
       
       {/* Dark Gradient Overlay */}

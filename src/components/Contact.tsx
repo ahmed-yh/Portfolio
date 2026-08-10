@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Mail, Github, Linkedin, Twitter, Send, MapPin, Phone } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, MapPin } from 'lucide-react';
 import RevealOnScroll from './RevealOnScroll';
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkjwjgkr'; // Replace YOUR_FORM_ID with your Formspree form ID
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -10,17 +12,39 @@ const Contact: React.FC = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message
+        })
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch {
+      setSubmitStatus('error');
+    } finally {
       setIsSubmitting(false);
-      alert('Message sent! I\'ll get back to you soon.');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 2000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -31,10 +55,9 @@ const Contact: React.FC = () => {
   };
 
   const socialLinks = [
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Mail, href: 'mailto:your.email@example.com', label: 'Email' }
+    { icon: Github, href: 'https://github.com/ahmed-yh', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://linkedin.com/in/ahmed-yh', label: 'LinkedIn' },
+    { icon: Mail, href: 'mailto:ahmedhachem0420@gmail.com', label: 'Email' }
   ];
 
   return (
@@ -46,94 +69,6 @@ const Contact: React.FC = () => {
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form - Glassmorphism Panel */}
-            <div className="glassmorphism-panel p-8 rounded-xl">
-              <h3 className="text-2xl font-orbitron font-bold text-cyan-400 mb-6">
-                Send a Message
-              </h3>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-cyan-300 text-sm font-audiowide mb-2">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="cyberpunk-input"
-                      placeholder="Your Name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-cyan-300 text-sm font-audiowide mb-2">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="cyberpunk-input"
-                      placeholder="your.email@example.com"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-cyan-300 text-sm font-audiowide mb-2">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="cyberpunk-input"
-                    placeholder="Project Collaboration"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-cyan-300 text-sm font-audiowide mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    className="cyberpunk-input resize-none"
-                    placeholder="Tell me about your AI project or collaboration idea..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="cyberpunk-btn cyberpunk-btn-primary w-full"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      <span>Sending...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4 mr-2" />
-                      <span>Send Message</span>
-                    </>
-                  )}
-                </button>
-              </form>
-            </div>
-
             {/* Contact Info */}
             <div className="space-y-8">
               <div className="glassmorphism-panel p-6 rounded-xl">
@@ -141,18 +76,13 @@ const Contact: React.FC = () => {
                   Let's Connect
                 </h3>
                 <p className="text-cyan-300/80 text-sm leading-relaxed mb-6">
-                  Ready to push the boundaries of AI together? Whether you're looking for collaboration, 
-                  consultation, or just want to discuss the future of artificial intelligence, I'd love to hear from you.
+                  I would love to hear from you! Whether it's a project idea, collaboration, or just a hello — reach out.
                 </p>
 
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <MapPin className="w-5 h-5 text-cyan-400" />
                     <span className="text-cyan-300">Sousse, Tunisia</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Phone className="w-5 h-5 text-cyan-400" />
-                    <span className="text-cyan-300">+216 96-440-496</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Mail className="w-5 h-5 text-cyan-400" />
@@ -166,7 +96,7 @@ const Contact: React.FC = () => {
                 <h3 className="text-xl font-orbitron font-bold text-cyan-400 mb-4">
                   Follow My Work
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-3 gap-4">
                   {socialLinks.map((link) => (
                     <a
                       key={link.label}
@@ -183,21 +113,81 @@ const Contact: React.FC = () => {
                   ))}
                 </div>
               </div>
+            </div>
 
-              {/* 
-                🎯 CONTACT MEDIA DROP ZONE 🎯
-                Add your professional photo, office setup, or AI workspace
-              */}
-              <div className="glassmorphism-panel p-6 rounded-xl">
-                <div className="text-center">
-                  <div className="text-purple-400 text-lg font-orbitron mb-2">
-                    📷 WORKSPACE SHOWCASE 📷
+            {/* Contact Form */}
+            <div className="glassmorphism-panel p-6 rounded-xl">
+              <h3 className="text-xl font-orbitron font-bold text-cyan-400 mb-6">
+                Send a Message
+              </h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-audiowide text-cyan-400 mb-1">Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="Your name"
+                      className="w-full bg-white/5 border border-cyan-500/20 rounded-lg px-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-cyan-400 transition-colors"
+                    />
                   </div>
-                  <p className="text-purple-300/60 text-sm">
-                    Professional photo | AI workspace | Setup tour
-                  </p>
+                  <div>
+                    <label className="block text-xs font-audiowide text-cyan-400 mb-1">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="your@email.com"
+                      className="w-full bg-white/5 border border-cyan-500/20 rounded-lg px-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-cyan-400 transition-colors"
+                    />
+                  </div>
                 </div>
-              </div>
+                <div>
+                  <label className="block text-xs font-audiowide text-cyan-400 mb-1">Subject</label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    placeholder="What's this about?"
+                    className="w-full bg-white/5 border border-cyan-500/20 rounded-lg px-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-cyan-400 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-audiowide text-cyan-400 mb-1">Message</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    placeholder="Tell me about your project or idea..."
+                    className="w-full bg-white/5 border border-cyan-500/20 rounded-lg px-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-cyan-400 transition-colors resize-none"
+                  />
+                </div>
+
+                {submitStatus === 'success' && (
+                  <p className="text-emerald-400 text-sm font-audiowide">✓ Message sent! I'll get back to you soon.</p>
+                )}
+                {submitStatus === 'error' && (
+                  <p className="text-red-400 text-sm font-audiowide">✗ Something went wrong. Please try emailing me directly.</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full cyberpunk-btn cyberpunk-btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                </button>
+              </form>
             </div>
           </div>
         </div>

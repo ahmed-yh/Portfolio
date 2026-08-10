@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, Play, Github, Zap } from 'lucide-react';
+import { Github, ExternalLink, Cpu, LayoutDashboard, Eye } from 'lucide-react';
 import RevealOnScroll from './RevealOnScroll';
 
 interface Project {
@@ -9,7 +9,6 @@ interface Project {
   technologies: string[];
   category: 'AI/ML' | 'Full Stack' | 'Computer Vision';
   status: 'live' | 'demo' | 'development';
-  demoVideo?: string;
   githubLink: string;
   demoLink?: string;
   deploymentInfo?: string;
@@ -23,29 +22,41 @@ const AIProjects: React.FC = () => {
     {
       id: 1,
       title: 'FertiFy',
-      description: 'Full-stack web application for plant care using AI-driven insights. Features interactive tools like Fertilizer Predictor and Plant Diagnosis using RAG technology.',
-      technologies: ['TypeScript', 'React', 'Next.js', 'Flask', 'Python', 'RAG'],
+      description: 'Full-stack plant care web app using React, Next.js, Flask, and RAG. Features two AI models for fertilizer prediction and plant diagnosis, delivering real-time insights through a responsive UI.',
+      technologies: ['React', 'Next.js', 'Flask', 'Python', 'RAG'],
       category: 'Full Stack',
       status: 'live',
       githubLink: 'https://github.com/ahmed-yh/FertiFy',
+      demoLink: '', // Add your Vercel URL here e.g. 'https://fertify.vercel.app'
       deploymentInfo: 'Frontend on Vercel, Backend on Render'
     },
     {
       id: 2,
       title: 'NexusBI',
-      description: 'Business intelligence platform transforming raw data into insights through AI-powered analysis. Features multi-agent system for automated data processing.',
-      technologies: ['TypeScript', 'React', 'Next.js', 'Flask', 'Python', 'RAG', 'Multi-Agent System'],
+      description: 'Full-stack business intelligence platform using React, Flask, and multi-agent system. Transforms raw data (CSV/Excel/JSON) into actionable insights with Google Generative AI-powered reports and automated end-to-end workflows.',
+      technologies: ['React', 'Next.js', 'Flask', 'Python', 'RAG', 'Multi-Agent System'],
       category: 'AI/ML',
       status: 'demo',
       githubLink: 'https://github.com/ahmed-yh/NexusBI',
+      demoLink: '', // Add your Vercel URL here e.g. 'https://nexusbi.vercel.app'
       deploymentInfo: 'Frontend on Vercel, AI Backend on Hugging Face Spaces'
+    },
+    {
+      id: 3,
+      title: 'Queue Intelligence System',
+      description: 'End-to-end queue intelligence system using YOLOv8, OpenCV, and Python for real-time customer tracking. Features polygon-based worker exclusion zones, confusion detection with LLM-powered correction via Google Gemini.',
+      technologies: ['Python', 'YOLOv8', 'OpenCV', 'Streamlit', 'Computer Vision', 'Agent System'],
+      category: 'Computer Vision',
+      status: 'development',
+      githubLink: 'https://github.com/ahmed-yh/queue-intelligence',
+      deploymentInfo: 'In Development'
     }
   ];
 
   const categories = ['all', 'AI/ML', 'Full Stack', 'Computer Vision'];
 
-  const filteredProjects = selectedCategory === 'all' 
-    ? projects 
+  const filteredProjects = selectedCategory === 'all'
+    ? projects
     : projects.filter(p => p.category === selectedCategory);
 
   const getStatusColor = (status: string) => {
@@ -54,6 +65,15 @@ const AIProjects: React.FC = () => {
       case 'demo': return 'from-cyan-400 to-blue-500';
       case 'development': return 'from-purple-500 to-pink-500';
       default: return 'from-gray-400 to-gray-500';
+    }
+  };
+
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case 'live': return '● Live';
+      case 'demo': return '◎ Demo';
+      case 'development': return '⋯ In Dev';
+      default: return status;
     }
   };
 
@@ -71,11 +91,10 @@ const AIProjects: React.FC = () => {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 rounded-full font-audiowide text-sm transition-all duration-300 ${
-                  selectedCategory === category
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-black'
-                    : 'bg-white/5 text-cyan-400 hover:bg-white/10'
-                }`}
+                className={`px-6 py-3 rounded-full font-audiowide text-sm transition-all duration-300 ${selectedCategory === category
+                  ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-black'
+                  : 'bg-white/5 text-cyan-400 hover:bg-white/10'
+                  }`}
               >
                 {category === 'all' ? 'All Projects' : category}
               </button>
@@ -87,46 +106,40 @@ const AIProjects: React.FC = () => {
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
-                className="floating-card group relative"
+                className="floating-card group relative flex flex-col"
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
-                {/* Project Demo/Video Section */}
-                <div className="mb-4 h-64 bg-gradient-to-br from-purple-900/20 to-cyan-900/20 rounded-lg overflow-hidden border-2 border-cyan-500/30 backdrop-blur-sm">
-                  {project.demoVideo ? (
-                    <video
-                      className="w-full h-full object-cover"
-                      src={project.demoVideo}
-                      controls
-                      muted
-                      loop
-                    />
-                  ) : (
-                    <div className="h-full flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="text-cyan-400 text-lg font-orbitron mb-2">
-                          Project Demo
-                        </div>
-                        <p className="text-cyan-300/60 text-sm px-4">
-                          {project.deploymentInfo}
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                {/* Project Banner */}
+                <div className={`h-44 rounded-t-lg overflow-hidden border-b border-cyan-500/20 relative flex items-center justify-center ${
+                  project.category === 'Full Stack' ? 'bg-gradient-to-br from-green-900/40 to-emerald-900/20' :
+                  project.category === 'AI/ML' ? 'bg-gradient-to-br from-purple-900/40 to-cyan-900/20' :
+                  'bg-gradient-to-br from-orange-900/40 to-amber-900/20'
+                }`}>
+                  <div className="flex flex-col items-center gap-3 opacity-60 group-hover:opacity-90 transition-opacity duration-300">
+                    {project.category === 'Full Stack' && <LayoutDashboard className="w-14 h-14 text-emerald-400" />}
+                    {project.category === 'AI/ML' && <Cpu className="w-14 h-14 text-cyan-400" />}
+                    {project.category === 'Computer Vision' && <Eye className="w-14 h-14 text-amber-400" />}
+                    <span className="font-orbitron text-sm tracking-widest text-white/50 uppercase">{project.category}</span>
+                  </div>
+                  {/* Status badge */}
+                  <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-audiowide bg-gradient-to-r ${getStatusColor(project.status)} text-black shadow-lg`}>
+                    {getStatusLabel(project.status)}
+                  </div>
                 </div>
 
                 {/* Project Info */}
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-orbitron font-bold text-white">
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="mb-3">
+                    <h3 className="text-xl font-orbitron font-bold text-white mb-1">
                       {project.title}
                     </h3>
-                    <div className={`px-3 py-1 rounded-full text-xs font-audiowide bg-gradient-to-r ${getStatusColor(project.status)}`}>
-                      {project.status}
-                    </div>
+                    {project.deploymentInfo && (
+                      <p className="text-xs text-cyan-400/60 font-audiowide">{project.deploymentInfo}</p>
+                    )}
                   </div>
 
-                  <p className="text-cyan-300/80 text-sm mb-4 leading-relaxed">
+                  <p className="text-cyan-300/80 text-sm mb-4 leading-relaxed flex-1">
                     {project.description}
                   </p>
 
@@ -143,41 +156,33 @@ const AIProjects: React.FC = () => {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-3">
-                    {project.demoLink ? (
-                      <a 
-                        href={project.demoLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 cyberpunk-btn cyberpunk-btn-primary text-sm"
-                      >
-                        <Play className="w-4 h-4 mr-2" />
-                        <span>Live Demo</span>
-                      </a>
-                    ) : (
-                      <button 
-                        className="flex-1 cyberpunk-btn cyberpunk-btn-primary text-sm opacity-50 cursor-not-allowed"
-                        disabled
-                      >
-                        <Play className="w-4 h-4 mr-2" />
-                        <span>Demo Coming Soon</span>
-                      </button>
-                    )}
+                  <div className="flex gap-3 mt-auto">
                     <a
                       href={project.githubLink}
                       target="_blank"
-                      rel="noopener noreferrer" 
-                      className="flex-1 cyberpunk-btn cyberpunk-btn-secondary text-sm"
+                      rel="noopener noreferrer"
+                      className={`cyberpunk-btn cyberpunk-btn-primary text-sm flex items-center justify-center gap-2 ${project.demoLink ? 'flex-1' : 'w-full'}`}
                     >
-                      <Github className="w-4 h-4 mr-2" />
-                      <span>Code</span>
+                      <Github className="w-4 h-4" />
+                      <span>GitHub</span>
                     </a>
+                    {project.demoLink && (
+                      <a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 cyberpunk-btn text-sm flex items-center justify-center gap-2 border border-cyan-500/40 text-cyan-400 hover:bg-cyan-400/10 transition-all duration-300"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        <span>Live Demo</span>
+                      </a>
+                    )}
                   </div>
                 </div>
 
-                {/* Hover Effects */}
+                {/* Hover Glow */}
                 {hoveredProject === project.id && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-purple-500/10 rounded-lg pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-purple-500/10 rounded-lg pointer-events-none" />
                 )}
               </div>
             ))}

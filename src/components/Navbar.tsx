@@ -1,38 +1,23 @@
 import React from 'react';
-import { Github, Instagram, Linkedin } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const socialLinks = [
     {
-      icon: <Github className="w-6 h-6" />,
+      icon: <Github className="w-5 h-5 md:w-6 md:h-6" />,
       href: "https://github.com/ahmed-yh",
       label: "GitHub"
     },
     {
-      icon: <Instagram className="w-6 h-6" />,
-      href: "https://www.instagram.com/ahmedd_yh/",
-      label: "Instagram"
-    },
-    {
-      icon: <img src="src/material/applemusic (1).png" alt="Apple Music" className="w-6 h-6 object-contain" />,
-      href: "https://music.apple.com/profile/yourusername",
-      label: "Apple Music"
-    },
-    {
-      icon: <img src="src/material/spotify.png" alt="Spotify" className="w-6 h-6 object-contain" />,
-      href: "https://open.spotify.com/user/31pchudikmiougik4vwrmwch7lya",
-      label: "Spotify"
-    },
-    {
-      icon: <Linkedin className="w-6 h-6" />,
+      icon: <Linkedin className="w-5 h-5 md:w-6 md:h-6" />,
       href: "https://linkedin.com/in/ahmed-yh",
       label: "LinkedIn"
     }
   ];
 
   return (
-    <nav className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-theme-dark-primary/30 dark:bg-theme-dark-primary/30 light:bg-theme-light-primary/80 backdrop-blur-md px-6 py-3 rounded-full">
-      <ul className="flex items-center space-x-8">
+    <nav className="fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-theme-dark-primary/30 dark:bg-theme-dark-primary/30 light:bg-theme-light-primary/80 backdrop-blur-md px-4 md:px-8 py-2 md:py-3 rounded-full w-auto max-w-full overflow-x-auto">
+      <ul className="flex items-center space-x-6 md:space-x-10">
         {socialLinks.map((link) => (
           <li key={link.label}>
             <a
@@ -51,4 +36,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;

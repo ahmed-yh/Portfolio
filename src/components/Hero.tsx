@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
+import backgroundVideo from '../material/videos/b5low.mp4';
 
 const Hero: React.FC = () => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -92,7 +93,7 @@ const Hero: React.FC = () => {
           className="absolute w-full h-full object-cover"
           style={{ willChange: 'transform' }}
         >
-          <source src="src/material/videos/b5low.mp4" type="video/mp4" />
+          <source src={backgroundVideo} type="video/mp4" />
         </video>
         
         {/* Dark Gradient Overlay */}

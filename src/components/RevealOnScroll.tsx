@@ -11,10 +11,9 @@ const RevealOnScroll: React.FC<RevealOnScrollProps> = ({ children }) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
+        // Toggle visibility based on whether element is in viewport
+        // This allows the animation to rewind when scrolling back up
+        setIsVisible(entry.isIntersecting);
       },
       {
         threshold: 0.1,
@@ -36,11 +35,10 @@ const RevealOnScroll: React.FC<RevealOnScrollProps> = ({ children }) => {
   return (
     <div
       ref={ref}
-      className={`transform transition-all duration-1000 ease-out ${
-        isVisible
+      className={`transform transition-all duration-1000 ease-out ${isVisible
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-20'
-      }`}
+        }`}
     >
       {children}
     </div>
