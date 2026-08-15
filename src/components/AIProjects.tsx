@@ -38,7 +38,7 @@ const AIProjects: React.FC = () => {
       category: 'AI/ML',
       status: 'demo',
       githubLink: 'https://github.com/ahmed-yh/NexusBI',
-      demoLink: '', // Add your Vercel URL here e.g. 'https://nexusbi.vercel.app'
+      demoLink: 'https://nexusbi.netlify.app/', // Add your Vercel URL here e.g. 'https://nexusbi.vercel.app'
       deploymentInfo: 'Frontend on Vercel, AI Backend on Hugging Face Spaces'
     },
     {
@@ -111,11 +111,10 @@ const AIProjects: React.FC = () => {
                 onMouseLeave={() => setHoveredProject(null)}
               >
                 {/* Project Banner */}
-                <div className={`h-44 rounded-t-lg overflow-hidden border-b border-cyan-500/20 relative flex items-center justify-center ${
-                  project.category === 'Full Stack' ? 'bg-gradient-to-br from-green-900/40 to-emerald-900/20' :
-                  project.category === 'AI/ML' ? 'bg-gradient-to-br from-purple-900/40 to-cyan-900/20' :
-                  'bg-gradient-to-br from-orange-900/40 to-amber-900/20'
-                }`}>
+                <div className={`h-44 rounded-t-lg overflow-hidden border-b border-cyan-500/20 relative flex items-center justify-center ${project.category === 'Full Stack' ? 'bg-gradient-to-br from-green-900/40 to-emerald-900/20' :
+                    project.category === 'AI/ML' ? 'bg-gradient-to-br from-purple-900/40 to-cyan-900/20' :
+                      'bg-gradient-to-br from-orange-900/40 to-amber-900/20'
+                  }`}>
                   <div className="flex flex-col items-center gap-3 opacity-60 group-hover:opacity-90 transition-opacity duration-300">
                     {project.category === 'Full Stack' && <LayoutDashboard className="w-14 h-14 text-emerald-400" />}
                     {project.category === 'AI/ML' && <Cpu className="w-14 h-14 text-cyan-400" />}
