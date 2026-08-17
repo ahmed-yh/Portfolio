@@ -45,9 +45,10 @@ const AIProjects: React.FC = () => {
       description: 'End-to-end queue intelligence system using YOLOv8, OpenCV, and Python for real-time customer tracking. Features polygon-based worker exclusion zones, confusion detection with LLM-powered correction via Google Gemini.',
       technologies: ['Python', 'YOLOv8', 'OpenCV', 'Streamlit', 'Computer Vision', 'Agent System'],
       category: 'Computer Vision',
-      status: 'development',
+      status: 'demo',
       githubLink: 'https://github.com/ahmed-yh/queue-intelligence',
-      deploymentInfo: 'In Development'
+      demoLink: 'https://qintelligencesystem.streamlit.app',
+      deploymentInfo: 'Demo Version'
     }
   ];
 
