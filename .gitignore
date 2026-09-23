@@ -9,6 +9,7 @@
 # Production
 /build
 /dist
+/dist-artifact
 
 # Misc
 .DS_Store
@@ -38,3 +39,6 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
+
+# iPhone originals (HEIC/MOV) kept out of the site bundle and git
+/media-originals

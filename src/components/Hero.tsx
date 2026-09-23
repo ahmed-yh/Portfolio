@@ -1,166 +1,136 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronDown } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
-import backgroundVideo from '../material/videos/b5low.mp4';
+import type { CSSProperties, ReactNode } from 'react';
+import { Github, Linkedin } from 'lucide-react';
+import Doodles from './Doodles';
+import Scribble from './Scribble';
+import Sketched from './Sketched';
+import SketchbookLink from './SketchbookLink';
+import { profile } from '../data';
+import { vars } from '../lib';
+import photo from '../material/cropped_image.png';
 
-const Hero: React.FC = () => {
-  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  const [nextPhraseIndex, setNextPhraseIndex] = useState(1);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const timeoutRef = useRef<number>();
-  const navigate = useNavigate();
+/**
+ * Landing page: the blog hero turned into a sketchbook cover.
+ * One slow timeline on load (ms): the name sketches itself in letter by letter,
+ * then everything else is drawn, dropped and stamped around it; after that
+ * the letters, stickers and polaroid keep moving gently at rest.
+ */
+const T = {
+  hi: 100,
+  name: 500, // 12 letters x 130ms, inked by ~2.9s
+  photo: 1700,
+  underline: 2500,
+  sparkle: 2950,
+  strike1: 3050,
+  role: 3350,
+  stamp: 3300,
+  quote: 4400,
+  note: 4300,
+  socials: 4700,
+  book: 5200,
+  idle: 6600,
+};
 
-  const phrases = [
-    "Applied AI Developer",
-    "AI Enthusiast",
-    "Building intelligent systems",
-    "Let's innovate together!"
+/** A word crossed out in red pen, drawn at `base` ms. */
+function Struck({ children, base }: { children: ReactNode; base: number }) {
+  return (
+    <span className="relative inline-block text-ink-muted">
+      {children}
+      <svg
+        className="a-draw boil absolute -left-[6%] top-1/2 h-5 w-[112%] -translate-y-1/2 text-redpen"
+        viewBox="0 0 100 10"
+        preserveAspectRatio="none"
+        style={{ '--base': `${base}ms`, '--dur': '450ms' } as CSSProperties}
+        aria-hidden="true"
+      >
+        <path d="M1 7 Q 30 3, 55 5.5 T 99 3" pathLength={1} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </svg>
+    </span>
+  );
+}
+
+export default function Hero() {
+  const socials = [
+    { label: 'GitHub', Icon: Github, href: profile.github },
+    { label: 'LinkedIn', Icon: Linkedin, href: profile.linkedin },
   ];
 
-  useEffect(() => {
-    const switchText = () => {
-      setIsAnimating(true);
-      
-      // After animation completes (500ms), update indices
-      setTimeout(() => {
-        setCurrentPhraseIndex(nextPhraseIndex);
-        setNextPhraseIndex((nextPhraseIndex + 1) % phrases.length);
-        setIsAnimating(false);
-      }, 500);
-    };
-
-    timeoutRef.current = window.setTimeout(switchText, 3000);
-
-    return () => {
-      if (timeoutRef.current) {
-        window.clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [nextPhraseIndex, phrases.length]);
-
-  // Handle video setup
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.preload = 'auto';
-      videoRef.current.load();
-      
-      const playVideo = () => {
-        if (videoRef.current) {
-          videoRef.current.play().catch(() => {
-            document.addEventListener('click', () => {
-              videoRef.current?.play();
-            }, { once: true });
-          });
-        }
-      };
-
-      videoRef.current.addEventListener('loadeddata', playVideo);
-      return () => {
-        if (videoRef.current) {
-          videoRef.current.removeEventListener('loadeddata', playVideo);
-        }
-      };
-    }
-  }, []);
-
-  const handleKnowMore = useCallback(async () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-
-    const section = document.querySelector('section');
-    if (section) {
-      section.classList.add('fade-out');
-    }
-
-    await new Promise(resolve => setTimeout(resolve, 250));
-    navigate('/portfolio', { replace: false });
-  }, [navigate, isTransitioning]);
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video */}
-      <div className="absolute inset-0 z-0">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="absolute w-full h-full object-cover"
-          style={{ willChange: 'transform' }}
-        >
-          <source src={backgroundVideo} type="video/mp4" />
-        </video>
-        
-        {/* Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-theme-dark-primary/30 to-theme-dark-primary/60 dark:from-theme-dark-primary/30 dark:to-theme-dark-primary/60 light:from-theme-light-primary/30 light:to-theme-light-primary/60"></div>
-      </div>
+    <main className="inview paper-texture hero-gradient relative flex min-h-screen items-center overflow-hidden">
+      <Doodles />
 
-      {/* Animated background grid with reduced opacity */}
-      <div className="absolute inset-0 opacity-10 z-[1]">
-        <div className="grid-pattern animate-pulse"></div>
-      </div>
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-20 px-6 py-24 md:grid-cols-[1.25fr_1fr] md:gap-12">
+        {/* Left: who */}
+        <div className="text-center md:text-left">
+          <p className="a-write font-hand text-3xl text-pen" style={vars({ base: T.hi })}>
+            hi, i'm
+          </p>
 
-      {/* Hero Content */}
-      <div className="relative z-10 container mx-auto px-6 md:px-12 lg:px-16 flex items-center justify-center">
-        <div className="max-w-2xl text-center">
-          {/* Main Headline */}
-          <div className="mb-6">
-            <h1 className="text-center text-5xl md:text-7xl lg:text-8xl font-fredoka font-bold bg-clip-text text-transparent bg-gradient-to-r from-theme-dark-accent1 via-theme-dark-accent2 to-theme-dark-accent1 dark:from-theme-dark-accent1 dark:via-theme-dark-accent2 dark:to-theme-dark-accent1 light:from-theme-light-accent1 light:via-theme-light-accent2 light:to-theme-light-accent1 animate-gradient leading-tight">
-              Hello, I'm Ahmed Yassine
-            </h1>
-          </div>
-          
-          {/* Dynamic Text Container */}
-          <div className="h-24 flex items-center justify-center mb-12 overflow-hidden">
-            <div className="relative h-full w-full flex flex-col justify-center">
-              {/* Current Text */}
-              <p 
-                className={`text-center text-2xl md:text-3xl lg:text-4xl text-theme-dark-accent1/80 dark:text-theme-dark-accent1/80 light:text-theme-light-accent1/80 font-caveat font-bold tracking-wide absolute w-full whitespace-nowrap ${
-                  isAnimating ? 'animate-slide-out' : ''
-                }`}
+          <h1 className="relative inline-block w-min font-serif text-5xl font-black leading-[1.05] tracking-tight sm:text-7xl lg:text-8xl">
+            <Sketched text={profile.shortName} base={T.name} step={130} />
+            <Scribble type="underline" className="a-draw boil absolute -bottom-3 left-0 -z-10 h-6 w-full opacity-80" style={{ '--base': `${T.underline}ms`, '--dur': '800ms' } as CSSProperties} />
+            <span className="a-pop absolute -right-8 -top-6" style={vars({ base: T.sparkle })}>
+              <Scribble type="sparkle" className="h-10 w-10 animate-twinkle" />
+            </span>
+          </h1>
+
+          <p className="mt-8 flex flex-wrap items-baseline justify-center gap-x-5 gap-y-2 font-serif text-2xl sm:text-3xl md:justify-start">
+            <Struck base={T.strike1}>student</Struck>
+            <span className="a-write font-marker text-3xl text-ink sm:text-4xl" style={vars({ base: T.role })}>
+              {profile.role}
+            </span>
+          </p>
+
+          <p className="a-fade mx-auto mt-8 max-w-xl font-serif text-lg italic leading-relaxed text-ink-muted sm:text-xl md:mx-0" style={vars({ base: T.quote })}>
+            <span className="relative">
+              <span className="absolute -left-6 -top-5 font-serif text-6xl font-bold text-sepia opacity-40" aria-hidden="true">“</span>
+              {profile.quote}
+            </span>
+          </p>
+
+          <div className="mt-10 flex items-center justify-center gap-4 md:justify-start">
+            {socials.map(({ label, Icon, href }, i) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="a-pop bump group rounded-full bg-ink p-4 text-paper shadow-md transition-[transform,box-shadow] duration-300 hover:[transform:translateY(-4px)] hover:shadow-xl"
+                style={{ ...vars({ i, base: T.socials }), '--idle': `${T.idle}ms` } as CSSProperties}
               >
-                {phrases[currentPhraseIndex]}
-              </p>
-              {/* Next Text */}
-              <p 
-                className={`text-center text-2xl md:text-3xl lg:text-4xl text-theme-dark-accent1/80 dark:text-theme-dark-accent1/80 light:text-theme-light-accent1/80 font-caveat font-bold tracking-wide absolute w-full whitespace-nowrap ${
-                  isAnimating ? 'animate-slide-in' : 'translate-y-full opacity-0'
-                }`}
-              >
-                {phrases[nextPhraseIndex]}
-              </p>
-            </div>
+                <Icon className="h-5 w-5 transition-transform group-hover:scale-110" aria-hidden="true" />
+              </a>
+            ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="flex justify-center mt-8">
-            <button 
-              onClick={handleKnowMore}
-              disabled={isTransitioning}
-              className={`font-fredoka font-semibold cyberpunk-btn cyberpunk-btn-primary text-lg px-8 py-4 transform hover:scale-105 transition-all duration-300 bg-gradient-to-r from-theme-dark-accent1 to-theme-dark-accent2 dark:from-theme-dark-accent1 dark:to-theme-dark-accent2 light:from-theme-light-accent1 light:to-theme-light-accent2 text-white ${
-                isTransitioning ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-            >
-              <span>{isTransitioning ? 'Loading...' : 'Explore My Work'}</span>
-            </button>
+          <div className="mt-14">
+            <SketchbookLink base={T.book} />
           </div>
+        </div>
+
+        {/* Right: the photo, taped in, stamped, annotated */}
+        <div className="relative mx-auto w-60 sm:w-72">
+          <figure className="polaroid a-drop sway" style={vars({ r: 4, base: T.photo })}>
+            <span className="tape a-tape" aria-hidden="true" />
+            <img src={photo} alt={`Portrait of ${profile.name}`} className="block aspect-square w-full" />
+            <figcaption className="pt-3 text-center font-hand text-2xl text-ink-muted">amberg, de</figcaption>
+          </figure>
+
+          <span className="stamp a-stamp absolute -bottom-8 -right-10 z-30 bg-paper/70 text-sm" style={vars({ base: T.stamp })}>
+            open to
+            <br />
+            work ✦
+          </span>
+
+          <p className="absolute -left-4 top-6 flex -translate-x-full items-start gap-1 font-hand text-2xl leading-tight text-pen max-md:static max-md:mt-10 max-md:translate-x-0 max-md:justify-center">
+            <span className="a-write boil w-36 -rotate-6 max-md:w-auto" style={vars({ base: T.note })}>
+              that's me (probably debugging)
+            </span>
+            <Scribble type="arrow" color="var(--color-pen)" className="a-draw boil h-10 w-10 shrink-0 rotate-12 max-md:hidden" style={vars({ base: T.note + 800 })} />
+          </p>
         </div>
       </div>
 
-      {/* Social Media Navbar */}
-      <Navbar />
-
-      {/* Scroll Indicator - Adjusted positioning */}
-      <div className="absolute bottom-24 inset-x-0 mx-auto flex justify-center animate-bounce z-10">
-        <ChevronDown className="text-theme-dark-accent1 dark:text-theme-dark-accent1 light:text-theme-light-accent1 w-8 h-8" />
-      </div>
-    </section>
+    </main>
   );
-};
-
-export default Hero;
+}

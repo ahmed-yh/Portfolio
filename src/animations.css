@@ -1,0 +1,605 @@
+/*
+ * Sketchbook motion.
+ *
+ * How it works:
+ * - Every primitive (.a-drop, .a-draw, ...) sits paused on its first frame
+ *   until the element or an ancestor gets `.inview` (see useInView in lib.tsx).
+ * - Knobs are CSS variables: --r resting tilt, --i stagger index,
+ *   --base delay, --extra per-primitive offset, --dur draw duration.
+ * - Entrances only animate the individual `translate` / `rotate` / `scale`
+ *   properties (plus opacity, filter, clip-path), so hover effects can use
+ *   `transform` freely without fighting the fill-mode.
+ * - Primitives use longhands only: a shorthand would reset the shared
+ *   delay / play-state below.
+ */
+
+:is(.a-drop, .a-swing, .a-tape, .a-pop, .a-stamp, .a-peel, .a-write, .a-deal, .a-rise, .a-fade, .marker),
+.a-draw :is(path, circle, line, ellipse, polyline),
+.post-h2::before {
+  animation-fill-mode: both;
+  animation-play-state: paused;
+  animation-delay: calc(var(--i, 0) * 90ms + var(--base, 0ms) + var(--extra, 0ms));
+}
+
+.inview :is(.a-drop, .a-swing, .a-tape, .a-pop, .a-stamp, .a-peel, .a-write, .a-deal, .a-rise, .a-fade, .marker),
+:is(.a-drop, .a-swing, .a-tape, .a-pop, .a-stamp, .a-peel, .a-write, .a-deal, .a-rise, .a-fade, .marker).inview,
+.inview .a-draw :is(path, circle, line, ellipse, polyline),
+.a-draw.inview :is(path, circle, line, ellipse, polyline),
+.inview .post-h2::before,
+.post-h2.inview::before {
+  animation-play-state: running;
+}
+
+/* ---------- Primitives ---------- */
+
+.a-drop {
+  animation-name: drop;
+  animation-duration: 900ms;
+  animation-timing-function: var(--ease-out);
+}
+
+.a-tape {
+  --extra: 600ms;
+  transform-origin: left center;
+  animation-name: tape-slap;
+  animation-duration: 350ms;
+  animation-timing-function: var(--ease-back);
+}
+
+.a-swing {
+  transform-origin: top center;
+  animation-name: swing;
+  animation-duration: 1500ms;
+  animation-timing-function: var(--ease-out);
+}
+
+.a-pop {
+  animation-name: pop;
+  animation-duration: 600ms;
+  animation-timing-function: var(--ease-back);
+}
+
+.a-stamp {
+  animation-name: stamp;
+  animation-duration: 550ms;
+  animation-timing-function: var(--ease-out);
+}
+
+.a-peel {
+  animation-name: peel;
+  animation-duration: 650ms;
+  animation-timing-function: var(--ease-back);
+}
+
+.a-write {
+  animation-name: write;
+  animation-duration: 1100ms;
+  animation-timing-function: steps(26, end);
+}
+
+.a-deal {
+  animation-name: deal;
+  animation-duration: 800ms;
+  animation-timing-function: var(--ease-out);
+}
+
+.a-rise {
+  animation-name: rise;
+  animation-duration: 800ms;
+  animation-timing-function: var(--ease-out);
+}
+
+.a-fade {
+  animation-name: fade;
+  animation-duration: 700ms;
+  animation-timing-function: ease-out;
+}
+
+.marker {
+  --extra: 350ms;
+  animation-name: sweep;
+  animation-duration: 900ms;
+  animation-timing-function: var(--ease-out);
+}
+
+.a-draw :is(path, circle, line, ellipse, polyline) {
+  stroke-dasharray: 1 1;
+  animation-name: draw;
+  animation-duration: var(--dur, 900ms);
+  animation-timing-function: ease-in-out;
+}
+
+.post-h2::before {
+  animation-name: wipe;
+  animation-duration: 900ms;
+  animation-timing-function: var(--ease-out);
+}
+
+/* ---------- Keyframes ---------- */
+
+/* falls from above, overshoots its tilt, settles; big soft shadow = still high up */
+@keyframes drop {
+  0% {
+    opacity: 0;
+    translate: 0 -80px;
+    rotate: calc(var(--r, 0) * 1deg - 14deg);
+    scale: 1.08;
+    filter: drop-shadow(0 40px 24px rgba(45, 42, 36, 0.28));
+  }
+  55% {
+    opacity: 1;
+    translate: 0 6px;
+    rotate: calc(var(--r, 0) * 1deg + 1.5deg);
+    scale: 1;
+    filter: drop-shadow(0 6px 6px rgba(45, 42, 36, 0.12));
+  }
+  78% {
+    translate: 0 -3px;
+    rotate: calc(var(--r, 0) * 1deg - 0.6deg);
+  }
+  100% {
+    opacity: 1;
+    translate: 0 0;
+    rotate: calc(var(--r, 0) * 1deg);
+    scale: 1;
+    filter: none;
+  }
+}
+
+@keyframes tape-slap {
+  0% { opacity: 0; scale: 0 1; }
+  70% { opacity: 1; scale: 1.15 1; }
+  100% { opacity: 1; scale: 1 1; }
+}
+
+/* damped pendulum from a pin or a clothes peg */
+@keyframes swing {
+  0% { opacity: 0; translate: 0 -50px; rotate: calc(var(--r, 0) * 1deg + 12deg); }
+  22% { opacity: 1; translate: 0 0; rotate: calc(var(--r, 0) * 1deg - 9deg); }
+  42% { rotate: calc(var(--r, 0) * 1deg + 6deg); }
+  60% { rotate: calc(var(--r, 0) * 1deg - 3.5deg); }
+  76% { rotate: calc(var(--r, 0) * 1deg + 1.5deg); }
+  90% { rotate: calc(var(--r, 0) * 1deg - 0.5deg); }
+  100% { opacity: 1; translate: 0 0; rotate: calc(var(--r, 0) * 1deg); }
+}
+
+@keyframes pop {
+  0% { opacity: 0; scale: 0; rotate: -25deg; }
+  60% { opacity: 1; scale: 1.25; rotate: 8deg; }
+  100% { opacity: 1; scale: 1; rotate: 0deg; }
+}
+
+/* rubber stamp: slams down, ink bleeds in, tiny thud */
+@keyframes stamp {
+  0% { opacity: 0; scale: 1.9; filter: blur(3px); }
+  55% { opacity: 0.9; scale: 0.94; filter: blur(0); translate: 0 0; }
+  70% { translate: 1px 2px; }
+  85% { scale: 1.02; translate: -1px -1px; }
+  100% { opacity: 0.85; scale: 1; filter: none; translate: 0 0; }
+}
+
+@keyframes peel {
+  0% { opacity: 0; scale: 0.5; translate: 0 -12px; rotate: calc(var(--r, 0) * 1deg - 30deg); }
+  65% { opacity: 1; scale: 1.12; translate: 0 0; rotate: calc(var(--r, 0) * 1deg + 5deg); }
+  100% { opacity: 1; scale: 1; translate: 0 0; rotate: calc(var(--r, 0) * 1deg); }
+}
+
+/* handwriting reveal, left to right */
+@keyframes write {
+  from { clip-path: inset(-25% 100% -25% -5%); }
+  to { clip-path: inset(-25% -5% -25% -5%); }
+}
+
+/* index cards dealt off a deck */
+@keyframes deal {
+  0% { opacity: 0; translate: -60px 40px; rotate: calc(var(--r, 0) * 1deg - 12deg); }
+  70% { opacity: 1; translate: 4px -3px; rotate: calc(var(--r, 0) * 1deg + 1deg); }
+  100% { opacity: 1; translate: 0 0; rotate: calc(var(--r, 0) * 1deg); }
+}
+
+@keyframes rise {
+  from { opacity: 0; translate: 0 28px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sweep {
+  to { background-size: 100% 60%; }
+}
+
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes wipe {
+  from { scale: 0 1; }
+  to { scale: 1 1; }
+}
+
+/* ---------- Loops (from the blog) ---------- */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(-2deg); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(0.7) rotate(20deg); opacity: 0.55; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-delayed { animation: float-delayed 7s ease-in-out 1s infinite; }
+.animate-wiggle { animation: wiggle 3s ease-in-out infinite; }
+.animate-twinkle { animation: twinkle 2.4s ease-in-out infinite; }
+.scribble-spin { animation: spin 8s linear infinite; }
+
+/* TOC active item underline (blog), now length-independent */
+.animate-scribble {
+  stroke-dasharray: 1 1;
+  animation: draw 400ms ease-out both;
+}
+
+/* "See all ->" arrows redraw on hover */
+@keyframes redraw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+.redraw:hover path {
+  stroke-dasharray: 1 1;
+  animation: redraw 500ms ease-out both;
+}
+
+/* sparkle that pops at a polaroid corner on hover */
+.hover-sparkle {
+  scale: 0;
+  transition: scale 300ms var(--ease-back);
+}
+
+.group:hover .hover-sparkle {
+  scale: 1;
+}
+
+/* contact: the stamp button hops when the letter is sent */
+@keyframes hop {
+  0% { translate: 0 0; rotate: 0deg; }
+  40% { translate: 0 -12px; rotate: -8deg; }
+  100% { translate: 0 0; rotate: 0deg; }
+}
+
+.a-hop { animation: hop 500ms var(--ease-back); }
+
+/* ---------- Music ---------- */
+
+@keyframes roll-in {
+  from { opacity: 0; translate: -180px 0; rotate: -540deg; }
+  to { opacity: 1; translate: 0 0; rotate: 0deg; }
+}
+
+.roll-in { animation: roll-in 1100ms var(--ease-out) both; }
+
+/* ---------- Lamp ---------- */
+
+@keyframes flicker {
+  0% { opacity: 0; }
+  15% { opacity: 0.55; }
+  30% { opacity: 0.08; }
+  45% { opacity: 0.45; }
+  100% { opacity: 0; }
+}
+
+.lamp-flicker {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #000;
+  pointer-events: none;
+  animation: flicker 450ms linear both;
+}
+
+.lamp-head {
+  transform-box: view-box;
+  transform-origin: 26px 17px;
+  transition: rotate 450ms var(--ease-back);
+}
+
+.dark .lamp-head { rotate: 30deg; }
+
+.lamp-rays path {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 400ms ease;
+}
+
+.dark .lamp-rays path { stroke-dashoffset: 1; }
+
+.lamp-glow { opacity: 0.4; transition: opacity 300ms ease; }
+.dark .lamp-glow { opacity: 0; }
+
+/* ---------- Scroll parallax for background doodles ---------- */
+
+@supports (animation-timeline: scroll()) {
+  @keyframes parallax {
+    to { translate: 0 var(--depth, -160px); }
+  }
+
+  .parallax {
+    animation: parallax linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* ---------- Page turn between routes (react-router viewTransition) ---------- */
+
+@keyframes page-out {
+  to { opacity: 0; translate: -40px 0; rotate: -2deg; }
+}
+
+@keyframes page-in {
+  from { opacity: 0; translate: 60px 0; rotate: 2deg; }
+}
+
+::view-transition-old(root) {
+  transform-origin: left bottom;
+  animation: page-out 350ms ease-in both;
+}
+
+::view-transition-new(root) {
+  transform-origin: right bottom;
+  animation: page-in 550ms var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+
+  .parallax {
+    animation: none !important;
+  }
+}
+
+/* =================================================================
+ * Life at rest (after cestclair.me): once something lands it keeps
+ * moving a little. Entrance + idle pairs are spelled out as lists:
+ * the idle loop starts after the entrance and has no backwards fill,
+ * so the two never fight. --d = the element's own entrance delay.
+ * ================================================================= */
+
+:is(.a-drop, .a-swing, .a-peel, .a-pop) {
+  --d: calc(var(--i, 0) * 90ms + var(--base, 0ms) + var(--extra, 0ms));
+}
+
+/* polaroids sway gently on their tape / pin */
+@keyframes sway {
+  0%, 100% { rotate: calc(var(--r, 0) * 1deg); }
+  25% { rotate: calc(var(--r, 0) * 1deg + var(--amp, 1deg)); }
+  75% { rotate: calc(var(--r, 0) * 1deg - var(--amp, 1deg)); }
+}
+
+.a-drop.sway {
+  animation-name: drop, sway;
+  animation-duration: 900ms, calc(6s + var(--i, 0) * 0.9s);
+  animation-timing-function: var(--ease-out), ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: both, none;
+  animation-delay: var(--d), calc(var(--d) + 900ms);
+}
+
+.a-swing.sway {
+  --amp: 1.8deg;
+  animation-name: swing, sway;
+  animation-duration: 1500ms, calc(4.5s + var(--i, 0) * 0.7s);
+  animation-timing-function: var(--ease-out), ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: both, none;
+  animation-delay: var(--d), calc(var(--d) + 1500ms);
+}
+
+/* hovering a polaroid holds it still so it can be read */
+.polaroid.sway:hover {
+  animation-play-state: running, paused;
+}
+
+/* a quick hop, then a long rest (cestclair's letterBump / starBump) */
+@keyframes hop {
+  0%, 12%, 100% { translate: 0 0; }
+  6% { translate: 0 calc(var(--hop, 7px) * -1); }
+}
+
+/* stickers hop now and then, each on its own clock */
+.a-peel {
+  animation-name: peel, hop;
+  animation-duration: 650ms, calc(4.5s + var(--i, 0) * 0.6s);
+  animation-timing-function: var(--ease-back), ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: both, none;
+  animation-delay: var(--d), calc(var(--d) + 1.5s + var(--i, 0) * 0.35s);
+}
+
+/* popped things that should keep bumping in a wave (social buttons) */
+.a-pop.bump {
+  animation-name: pop, hop;
+  animation-duration: 600ms, 3.6s;
+  animation-timing-function: var(--ease-back), ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: both, none;
+  animation-delay: var(--d), calc(var(--idle, 0ms) + var(--i, 0) * 120ms);
+}
+
+/* ---------- Titles that sketch themselves in ----------
+ * Each letter: pencil outline scratches in left to right (stepped clip),
+ * then ink floods it, then it joins a slow hop wave at rest. */
+
+.sketch-letter {
+  display: inline-block;
+  -webkit-text-stroke: 0 var(--color-ink);
+  --d: calc(var(--i, 0) * var(--step, 130ms) + var(--base, 0ms));
+  animation-name: sketch, ink, hop;
+  animation-duration: 520ms, 550ms, var(--loop, 4.2s);
+  animation-timing-function: steps(10, end), ease-out, ease-in-out;
+  animation-iteration-count: 1, 1, infinite;
+  animation-fill-mode: both, both, none;
+  animation-delay: var(--d), calc(var(--d) + 450ms), calc(var(--idle, 0ms) + var(--i, 0) * 70ms);
+  animation-play-state: paused;
+}
+
+.inview .sketch-letter {
+  animation-play-state: running;
+}
+
+@keyframes sketch {
+  from { clip-path: inset(-25% 100% -25% -15%); }
+  to { clip-path: inset(-25% -15% -25% -15%); }
+}
+
+@keyframes ink {
+  from { color: transparent; -webkit-text-stroke-width: 1.5px; }
+  to { -webkit-text-stroke-width: 0; }
+}
+
+/* ---------- Line boil: hand-drawn lines jitter at rest ----------
+ * The #boil filter (App.tsx) swaps its noise seed a few times a second. */
+.boil {
+  filter: url(#boil);
+}
+
+/* ---------- The sketchbook CTA ---------- */
+
+.book {
+  position: relative;
+  display: block;
+  width: 17rem;
+  height: 11rem;
+  perspective: 1000px;
+  color: #2D2A24;
+  text-align: left;
+}
+
+.book-page {
+  position: absolute;
+  inset: 3px 0 3px 4px;
+  display: grid;
+  place-items: center;
+  border-radius: 2px 8px 8px 2px;
+  background-color: #FBFAF6;
+  background-image: repeating-linear-gradient(transparent 0 23px, rgba(90, 130, 190, 0.25) 23px 24px);
+  background-position: 0 14px;
+  box-shadow: 2px 2px 0 #E9E2D3, 4px 4px 0 #DCD3C1, 0 14px 26px rgba(45, 42, 36, 0.25);
+}
+
+.book-cover {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 3px 10px 10px 3px;
+  background-color: #B8955F;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15), inset -8px 0 14px rgba(0, 0, 0, 0.18);
+  transform-origin: left center;
+  backface-visibility: hidden;
+  transition: transform 500ms var(--ease-back);
+  animation: peek 5.5s ease-in-out var(--peek-delay, 0ms) infinite;
+}
+
+/* the cover lifts a little every few seconds, as if something's inside */
+@keyframes peek {
+  0%, 72%, 100% { rotate: y 0deg; }
+  80% { rotate: y -16deg; }
+  87% { rotate: y -3deg; }
+  93% { rotate: y -9deg; }
+}
+
+.book:hover .book-cover,
+.book:focus-visible .book-cover {
+  transform: rotateY(-34deg);
+  animation-play-state: paused;
+}
+
+.book.is-open .book-cover {
+  transform: rotateY(-178deg);
+  transition-duration: 650ms;
+  animation-play-state: paused;
+}
+
+/* spiral binding */
+.book-spiral {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 6px;
+  width: 12px;
+  background: radial-gradient(circle, transparent 2.5px, #4A443B 3px, #4A443B 4.2px, transparent 4.7px) 0 0 / 12px 15px repeat-y;
+}
+
+/* elastic band */
+.book-cover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 16%;
+  width: 7px;
+  border-radius: 2px;
+  background: #2D2A24;
+  opacity: 0.85;
+}
+
+.book-ribbon {
+  position: absolute;
+  bottom: -30px;
+  left: 70%;
+  z-index: -1;
+  width: 12px;
+  height: 42px;
+  background: #B03A2E;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+  transform-origin: top center;
+  animation: ribbon 3.2s ease-in-out infinite;
+}
+
+@keyframes ribbon {
+  0%, 100% { rotate: 5deg; }
+  50% { rotate: -6deg; }
+}
+
+/* lamp light breathes a little */
+@keyframes rays {
+  50% { opacity: 0.5; }
+}
+
+.lamp-rays { animation: rays 2.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .boil { filter: none; }
+}
+
+/* next photo in a polaroid slideshow slides in like a print on top of the pile */
+@keyframes shuffle {
+  from { opacity: 0; translate: 18px 0; rotate: 4deg; }
+}
+
+.a-shuffle { animation: shuffle 450ms var(--ease-out) both; }
