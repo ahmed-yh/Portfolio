@@ -4,6 +4,7 @@ import Doodles from './Doodles';
 import Scribble from './Scribble';
 import Sketched from './Sketched';
 import SketchbookLink from './SketchbookLink';
+import EuropeMap from './EuropeMap';
 import { profile } from '../data';
 import { vars } from '../lib';
 import photo from '../material/cropped_image.png';
@@ -113,7 +114,10 @@ export default function Hero() {
           <figure className="polaroid a-drop sway" style={vars({ r: 4, base: T.photo })}>
             <span className="tape a-tape" aria-hidden="true" />
             <img src={photo} alt={`Portrait of ${profile.name}`} className="block aspect-square w-full" />
-            <figcaption className="pt-3 text-center font-hand text-2xl text-ink-muted">amberg, de</figcaption>
+            <figcaption className="flex items-center justify-center gap-2 pt-2 font-hand text-2xl text-ink-muted">
+              <EuropeMap base={T.photo + 900} className="h-16 w-[72px] shrink-0" />
+              amberg, de
+            </figcaption>
           </figure>
 
           <span className="stamp a-stamp absolute -bottom-8 -right-10 z-30 bg-paper/70 text-sm" style={vars({ base: T.stamp })}>

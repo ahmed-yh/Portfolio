@@ -2,9 +2,9 @@
  * Everything the site says, in one place.
  * Wrap a phrase in **double stars** to give it a highlighter mark (see hl() in lib.tsx).
  */
-import fertifyImg from './material/fertify.png';
-import nexusImg from './material/nexusbi.png';
-import queueImg from './material/queue_intelligence.png';
+import fertifyImg from './material/projects/fertify.jpg';
+import nexusImg from './material/projects/nexusbi.jpg';
+import queueImg from './material/projects/queue.jpg';
 import bacImg from './material/bac.jpg';
 import pristiniImg from './material/pristini.jpg';
 import hackathonImg from './material/hackathon.jpg';
@@ -111,9 +111,24 @@ export interface Job {
 
 export const experience: Job[] = [
   {
+    id: 'oth-aw',
+    period: 'Apr 2026 – now',
+    role: 'AI Engineer Intern',
+    company: 'Automotive Team, OTH Amberg-Weiden',
+    place: 'Amberg',
+    line: 'Turning **LiDAR scans into 3D worlds** and getting AI models to run **on edge devices**.',
+    bullets: [
+      'Fused LiDAR, IMU and wheel odometry into **real-time point clouds and 3D mesh reconstructions** of tunnel environments, plus grid maps for DRL-based wireless repeater placement in Sionna/Gazebo simulations.',
+      'Adapted and **deployed AI models on edge devices**, including real-world data preprocessing and format conversion for model compatibility.',
+      'Evaluated the **sim-to-real gap** and fine-tuned models on real-world data to make deployment more robust.',
+    ],
+    stack: ['LiDAR', 'IMU', 'Sionna', 'Gazebo', 'DRL', 'Edge AI'],
+    note: "(that's where jackal lives)",
+  },
+  {
     id: 'brokins',
     period: 'Jun – Jul 2025',
-    role: 'AI Engineer Intern',
+    role: 'AI Engineer',
     company: 'Brokins',
     place: 'France',
     line: 'Built **two production AI tools** from scratch for a French insurance broker.',
@@ -128,7 +143,7 @@ export const experience: Job[] = [
   {
     id: 'pura',
     period: 'Jun – Jul 2024',
-    role: 'AI Data Labeling Intern',
+    role: 'AI Data Labeling',
     company: 'PURA Solutions',
     place: 'Sousse',
     line: 'Labeled **20,000+ images** and cut project time by **67%**.',
@@ -180,13 +195,26 @@ export const hackathons: Hackathon[] = [
   },
 ];
 
-export const education = {
-  school: 'Pristini School of AI',
-  place: 'Sousse, Tunisia',
-  degree: 'Bachelor in Applied Artificial Intelligence',
-  period: 'Sep 2023 – May 2026',
-  courses: ['Deep Learning', 'Machine Learning', 'Computer Vision', 'Data Engineering', 'Big Data', 'Data Mining', 'Advanced Python', 'C', 'Java'],
-};
+export const education = [
+  {
+    id: 'pristini',
+    school: 'Pristini School of AI',
+    place: 'Sousse, Tunisia',
+    degree: 'Bachelor in Applied Artificial Intelligence',
+    period: 'Sep 2023 – Jan 2026',
+    courses: ['Deep Learning', 'Machine Learning', 'Computer Vision', 'Data Engineering', 'Big Data', 'Data Mining', 'Advanced Python', 'C', 'Java'],
+    stamp: 'graduated',
+  },
+  {
+    id: 'oth-aw',
+    school: 'OTH Amberg-Weiden',
+    place: 'Amberg, Germany',
+    degree: 'Bachelor in Artificial Intelligence · Exchange program',
+    period: 'Mar 2026 – now',
+    courses: [],
+    stamp: '',
+  },
+];
 
 export const languages = [
   { name: 'Arabic', level: 'native' },

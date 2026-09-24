@@ -220,16 +220,22 @@ export default function Portfolio() {
               </Section>
 
               <Section n={6} id="education" title="Education">
-                <div className="index-card a-deal max-w-xl" style={vars({ r: -1, base: 200 })}>
-                  <p className="font-mono text-xs uppercase tracking-wider text-ink-muted">{education.period}</p>
-                  <h3 className="text-xl font-bold">{education.degree}</h3>
-                  <p>{education.school} · {education.place}</p>
-                  <p className="text-sm text-ink-muted">{education.courses.join(' · ')}</p>
-                  <span className="stamp stamp-round a-stamp absolute -right-4 -top-10 w-28 bg-card/70 sm:-right-10" style={vars({ base: 900 })}>
-                    graduated
-                    <br />
-                    ★ 2026 ★
-                  </span>
+                <div className="space-y-10">
+                  {education.map((ed, i) => (
+                    <div key={ed.id} className="index-card a-deal max-w-xl" style={vars({ r: i ? 1 : -1, i: i * 3, base: 200 })}>
+                      <p className="font-mono text-xs uppercase tracking-wider text-ink-muted">{ed.period}</p>
+                      <h3 className="text-xl font-bold">{ed.degree}</h3>
+                      <p>{ed.school} · {ed.place}</p>
+                      {ed.courses.length > 0 && <p className="text-sm text-ink-muted">{ed.courses.join(' · ')}</p>}
+                      {ed.stamp && (
+                        <span className="stamp stamp-round a-stamp absolute -right-4 -top-10 w-28 bg-card/70 sm:-right-10" style={vars({ base: 900 })}>
+                          {ed.stamp}
+                          <br />
+                          ★ 2026 ★
+                        </span>
+                      )}
+                    </div>
+                  ))}
                 </div>
                 <div className="mt-12 flex flex-wrap items-center gap-3">
                   <span className="a-write mr-2 font-hand text-2xl text-pen" style={vars({ base: 600 })}>i speak:</span>

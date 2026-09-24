@@ -21,7 +21,7 @@ export default function ExperiencePage() {
       intro={
         <>
           <p>
-            Two internships and one production deploy I'll never forget. These are the notes I kept along the way.
+            From labeling 20,000 images to rebuilding tunnels from LiDAR scans, plus one production deploy I'll never forget. These are the notes I kept along the way.
           </p>
           <p className="italic text-ink-muted">Highlighted bits are the numbers I'm proudest of.</p>
         </>
