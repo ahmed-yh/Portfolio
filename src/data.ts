@@ -33,13 +33,13 @@ export const profile = {
   resume: resumePdf,
   quote: "I build systems that see, read and reason, and I sketch the rest.",
   about: [
-    "AI engineer by trade, sketcher by habit. I like the messy middle: the part where a model that works in a notebook has to **survive real users**. I've shipped RAG chatbots for a French insurer, tracked customers through queues with YOLOv8, and turned raw spreadsheets into reports written by a team of agents.",
-    "Curiosity and creativity have always run the show. When I'm not tinkering with models I'm editing videos, building side projects for fun (lately that's game dev: I'm learning Lua and making small games from scratch with the LÖVE2D framework), or entering yet another hackathon. I'm **open to work** and looking for a team where we push each other to do our best work.",
+    "Originally from Sousse, Tunisia, I'm an AI engineer now living in Amberg, Germany. Outside work I edit videos and keep signing up for hackathons. I also build side projects for fun. Lately that's game dev: I'm learning Lua and making small games from scratch with LÖVE2D.",
+    "I'm **open to work**, and I'm looking for a team where we push each other to do better work.",
   ],
   now:
-    "I'm finishing my thesis, where I lead a **sim-to-real evaluation of edge-deployed perception models**, using LiDAR-based environment reconstruction. I rebuild real spaces in simulation with Spark-FAST-LIO and KISS-Matcher, train models on that simulated data, then benchmark how they hold up in the real world. Right now I'm working with **PointNet++**, a neural network that learns straight from raw 3D point clouds by grouping nearby points and picking up shapes at several scales, a bit like a CNN for LiDAR.",
+    "I'm finishing my thesis, where I'm leading a **sim-to-real evaluation of edge-deployed perception models** built on LiDAR reconstructions of real environments. I rebuild real spaces in simulation with Spark-FAST-LIO and KISS-Matcher, train models on the simulated data, and then test how well they do on real data. The model I'm working with at the moment is **PointNet++**. It reads raw 3D point clouds directly, groups nearby points together and learns shapes at several scales, a bit like a CNN for LiDAR.",
   howIWork:
-    "I start with the real problem, ship a small working version fast, then sharpen it with real feedback. I care about things running in production, not just in a notebook, and hackathons taught me to stay calm when the clock is loud.",
+    "First I make sure I understand the problem. Then I get a small version working quickly and improve it with feedback from the people using it. I care whether it runs in production, and hackathons taught me to stay calm with a deadline ticking.",
 };
 
 export interface Project {
@@ -62,9 +62,9 @@ export const projects: Project[] = [
     role: 'Computer vision · agents',
     status: 'DEMO',
     image: queueImg,
-    summary: 'Real-time customer tracking with YOLOv8 and an LLM that fixes its own tracking mistakes.',
+    summary: 'Tracks customers in real time with YOLOv8 and sends the confusing moments to Gemini to fix.',
     description:
-      'Tracks every customer in a queue in real time, computes dwell times and exports analytics-ready CSV/JSON. Polygon exclusion zones keep staff out of the metrics, and a confusion detector flags ID switches and occlusions, then asks Gemini to review the clip and correct the tracks.',
+      'It follows each customer through a queue in real time, measures how long they wait and exports the numbers as CSV or JSON. Polygon zones keep staff out of the counts. When the tracker gets confused, for example by an ID switch or someone hidden behind someone else, the clip goes to Gemini, which decides how to fix the tracks.',
     tags: ['Python', 'YOLOv8', 'OpenCV', 'Streamlit', 'Gemini', 'Agents'],
     github: 'https://github.com/ahmed-yh/queue-intelligence',
     demo: 'https://qintelligencesystem.streamlit.app',
@@ -77,7 +77,7 @@ export const projects: Project[] = [
     image: nexusImg,
     summary: 'Drop in a CSV, get a written BI report from a team of specialised agents.',
     description:
-      'A full-stack business intelligence platform. Agents handle import, dataset management and analysis; a Flask pipeline ingests CSV/Excel/JSON, cleans it, and calls Google Generative AI to write comprehensive reports in plain language.',
+      'A full-stack business intelligence app. You upload a CSV, Excel or JSON file and a Flask pipeline cleans it, while separate agents handle the import, the dataset and the analysis. Gemini then writes up what it found as a plain-language report.',
     tags: ['React', 'Next.js', 'Flask', 'RAG', 'Multi-Agent'],
     github: 'https://github.com/ahmed-yh/NexusBI',
     demo: 'https://nexusbi.netlify.app/',
@@ -90,7 +90,7 @@ export const projects: Project[] = [
     image: fertifyImg,
     summary: 'Two RAG-powered models that predict fertilizer needs and diagnose sick plants.',
     description:
-      'Log your plants, get tailored care suggestions and diagnose issues fast. Two RAG-powered models (Fertilizer Predictor and Plant Diagnosis) sit behind a Flask backend and a responsive React UI.',
+      'A plant care app: you log your plants, get care suggestions for each one, and diagnose problems from a photo. Two RAG models (Fertilizer Predictor and Plant Diagnosis) run behind a Flask backend and a React UI.',
     tags: ['React', 'Next.js', 'Flask', 'Python', 'RAG'],
     github: 'https://github.com/ahmed-yh/FertiFy',
     demo: 'https://fertify.netlify.app/',
@@ -116,11 +116,11 @@ export const experience: Job[] = [
     role: 'AI Engineer Intern',
     company: 'Automotive Team, OTH Amberg-Weiden',
     place: 'Amberg',
-    line: 'Turning **LiDAR scans into 3D worlds** and getting AI models to run **on edge devices**.',
+    line: 'Turning **LiDAR scans into 3D maps** and getting AI models to run **on edge devices**.',
     bullets: [
       'Fused LiDAR, IMU and wheel odometry into **real-time point clouds and 3D mesh reconstructions** of tunnel environments, plus grid maps for DRL-based wireless repeater placement in Sionna/Gazebo simulations.',
       'Adapted and **deployed AI models on edge devices**, including real-world data preprocessing and format conversion for model compatibility.',
-      'Evaluated the **sim-to-real gap** and fine-tuned models on real-world data to make deployment more robust.',
+      'Measured the **sim-to-real gap** and fine-tuned models on real-world data so they hold up better once deployed.',
     ],
     stack: ['LiDAR', 'IMU', 'Sionna', 'Gazebo', 'DRL', 'Edge AI'],
     note: "(that's where jackal lives)",
@@ -148,7 +148,7 @@ export const experience: Job[] = [
     place: 'Sousse',
     line: 'Labeled **20,000+ images** and cut project time by **67%**.',
     bullets: [
-      'Led an AI training initiative, labeling **20,000+ product images** with detailed metadata.',
+      'Led a labeling project for AI training: **20,000+ product images**, each with detailed metadata.',
       'Designed a scalable labeling pipeline that **reduced project time by 67%**.',
       'Reached **98% labeling accuracy** and ran QA with the CTO, **improving model accuracy by 20%**.',
     ],
@@ -170,7 +170,7 @@ export const hackathons: Hackathon[] = [
     date: 'Oct 2025',
     name: 'ClimAdapt',
     org: 'AGEOS',
-    text: 'Built CO²LD, an environmental education game with a climate warning that mixes AI, gaming and sustainability.',
+    text: 'Built CO²LD, an interactive game that uses AI to teach people about climate change.',
   },
   {
     id: 'mutualhack',
@@ -184,14 +184,14 @@ export const hackathons: Hackathon[] = [
     date: 'Feb 2025',
     name: 'Coding Moon Challenge',
     org: 'Microsoft Club',
-    text: 'A two-person team building a full-stack data-insights app with Gemini + RAG that writes structured reports.',
+    text: 'With one teammate, built a full-stack app that analyzes datasets with Gemini and RAG and writes structured reports.',
   },
   {
     id: 'hackathon-2',
     date: 'Nov 2023',
     name: 'Hackathon 2.0',
     org: 'AIESEC',
-    text: 'An IoT app for household water conservation (UN SDG 6): smart sensors plus real-time consumption dashboards.',
+    text: 'Four of us built an IoT app that helps households save water, using smart sensors and a live dashboard of their usage.',
   },
 ];
 
@@ -237,36 +237,36 @@ export const journey = [
     id: 'bac',
     date: 'Jun 2023',
     title: 'Journey begins',
-    text: 'A Baccalaureate in Electromechanics: the launchpad into AI.',
+    text: 'Finished high school with a Baccalaureate in Electromechanics. AI came next.',
     media: [bacImg],
   },
   {
     id: 'pristini',
     date: 'Sep 2023',
     title: 'Pristini School of AI',
-    text: 'Where curiosity started turning into real-world skills.',
+    text: 'Started my degree in applied AI.',
     media: [pristiniImg],
   },
   {
     id: 'clicked',
     date: '2024',
     title: 'When it clicked',
-    text: 'Computer vision, deep learning, and my first hackathon win :)',
+    text: 'Computer vision and deep learning started to make sense, and I won my first hackathon :)',
     media: [hackathonImg],
   },
   {
     id: 'growth',
     date: '2025',
     title: 'A year of growth',
-    text: 'Internships, projects and theory put into practice.',
+    text: 'An internship with a French insurer, more projects and a lot of studying.',
     media: [todayImg],
   },
   {
     id: 'germany',
     date: 'Summer 2026',
     title: 'Research in Germany',
-    text: 'End-of-studies research at an institute in Germany.',
-    media: [labSetup, germanyImg],
+    text: 'Moved to Amberg for my thesis research with the automotive team at OTH Amberg-Weiden.',
+    media: [germanyImg, labSetup],
   },
 ];
 
@@ -283,7 +283,7 @@ const inFolder = (folder: string) =>
     .map((path) => outsideFiles[path]);
 
 export const outsideTheIde = [
-  { id: 'travel', title: 'Travel', text: 'Places that rewired how I think.', media: inFolder('travel') },
-  { id: 'hackathon-wins', title: 'Hackathon wins', text: 'The trophies, the sleepless nights.', media: inFolder('hackathon-wins') },
-  { id: 'design-and-edits', title: 'Design & edits', text: 'Videos, posters, Figma experiments.', media: inFolder('design-and-edits') },
+  { id: 'travel', title: 'Travel', text: 'Trips around Europe this year.', media: inFolder('travel') },
+  { id: 'hackathon-wins', title: 'Hackathon wins', text: 'Photos from the hackathons I won.', media: inFolder('hackathon-wins') },
+  { id: 'design-and-edits', title: 'Design & edits', text: 'Some of my video edits and designs.', media: inFolder('design-and-edits') },
 ];

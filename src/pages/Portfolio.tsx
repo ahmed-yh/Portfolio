@@ -270,7 +270,7 @@ export default function Portfolio() {
               <Section n={8} id="outside-the-ide" title="Outside the IDE">
                 <div className="prose-gwern mb-12">
                   <p>
-                    When I step away from the screen I recharge by travelling, editing videos and chasing the next hackathon. Tap a photo to flip to the next one.
+                    Away from the screen I travel and edit videos, and I keep signing up for hackathons. Tap a photo to see the next one.
                   </p>
                 </div>
                 <div className="flex flex-wrap items-start justify-center gap-x-10 gap-y-14">

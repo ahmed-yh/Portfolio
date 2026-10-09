@@ -63,7 +63,7 @@ const Contact: React.FC = () => {
     <div className="grid gap-10">
       <div className="prose-gwern">
         <p>
-          Let&apos;s work together. Whether it&apos;s a role, a project idea or just a hello, write me a letter and it lands straight in my inbox.
+          If you have a role or a project in mind, or just want to say hi, write me a letter below. It goes straight to my inbox.
         </p>
         <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm text-ink-muted">
           <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4" aria-hidden="true" />{profile.location}</span>

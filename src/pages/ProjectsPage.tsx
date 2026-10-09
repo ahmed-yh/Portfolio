@@ -6,11 +6,11 @@ export default function ProjectsPage() {
   return (
     <GardenPage
       title="The Project Wall"
-      subtitle="Everything I've built, pinned up where I can see it"
+      subtitle="What I've built, pinned up where I can see it"
       intro={
         <>
           <p>
-            Every project here started as a line in a notebook: a "what if the camera could count the queue?" or a "why can't a spreadsheet just explain itself?". Some became demos, some went live, all of them taught me something.
+            Each of these started as a question in my notes, like "what if a camera could count the queue?" or "why can't a spreadsheet explain itself?". Two of them are demos and one is live.
           </p>
           <p className="italic text-ink-muted">Open the live demos, or dig through the code on GitHub.</p>
         </>
