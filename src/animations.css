@@ -595,6 +595,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .boil { filter: none; }
+  .planes { display: none; } /* SMIL ignores the duration override above */
 }
 
 /* next photo in a polaroid slideshow slides in like a print on top of the pile */

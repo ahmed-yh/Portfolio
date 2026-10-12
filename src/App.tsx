@@ -9,6 +9,7 @@ import { MusicProvider } from './components/music/MusicContext';
 import MusicManager from './components/music/MusicManager';
 import MusicPopup from './components/music/MusicPopup';
 import VinylPlayer from './components/music/VinylPlayer';
+import { loadVisitors } from './visitors';
 
 // Artifact builds are served without real paths, so routing stays in memory there
 const Router = import.meta.env.MODE === 'artifact' ? MemoryRouter : BrowserRouter;
@@ -23,6 +24,11 @@ function ScrollToTop() {
 }
 
 function App() {
+  // count the visit on whatever page they land on, not only when the map scrolls into view
+  useEffect(() => {
+    loadVisitors();
+  }, []);
+
   return (
     <MusicProvider>
       <svg className="absolute h-0 w-0" aria-hidden="true">

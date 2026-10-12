@@ -10,6 +10,7 @@ import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import Sketched from '../components/Sketched';
 import Dossier from '../components/Dossier';
+import AirMail from '../components/AirMail';
 import { useInView, vars, tilt, hl } from '../lib';
 import { photos, profile, projects, experience, hackathons, education, languages, skills, journey, outsideTheIde } from '../data';
 
@@ -303,7 +304,11 @@ export default function Portfolio() {
                 </figure>
               </Section>
 
-              <Section n={10} id="contact" title="Contact">
+              <Section n={10} id="visitors" title="Visitors">
+                <AirMail />
+              </Section>
+
+              <Section n={11} id="contact" title="Contact">
                 <Contact />
               </Section>
             </article>
